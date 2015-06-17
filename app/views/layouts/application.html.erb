@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ken</title>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="http://designmodo.github.io/Flat-UI/dist/css/flat-ui.min.css" rel="stylesheet" />
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="http://designmodo.github.io/Flat-UI/dist/js/flat-ui.min.js"></script>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="ken-container">
+    <%= yield %>
+  </div>
+</body>
+</html>

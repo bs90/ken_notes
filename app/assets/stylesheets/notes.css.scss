@@ -1,0 +1,57 @@
+.new-notes-label, .doing-notes-label, .done-notes-label {
+  width: 325px;
+  height: 42px;
+  float: left;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  line-height: 42px;
+}
+
+.new-notes, .doing-notes, .done-notes {
+  width: 325px;
+  min-height: 325px;
+  float: left;
+  .one-note {
+    margin: 5px 5px 0px 0px;
+    width: 157.5px;
+    height: 100px;
+    padding: 5px;
+    color: white;
+    float: left;
+  }
+}
+
+.new-notes-label, .new-notes > .one-note {
+  background-color: rgba(46,204,113,0.7);
+}
+
+.doing-notes-label, .doing-notes > .one-note {
+  background-color: rgba(231,76,60,0.7);
+}
+
+.done-notes-label, .done-notes > .one-note {
+  background-color: rgba(53,152,219,0.7);
+}
+
+.add-button {
+  float: left;
+}
+
+.input-text {
+  width: 90%;
+  text-align: center;
+}
+
+.submit-button {
+  margin: 10px;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.note-trash {
+  height: 40px;
+  float: right;
+}

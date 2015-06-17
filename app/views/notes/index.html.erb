@@ -1,0 +1,98 @@
+<div class="new-notes-label">NEW<button type="button" class="btn btn-success add-button" data-toggle="modal" data-target="#myModal">+</button></div>
+<div class="doing-notes-label">DOING</div>
+<div class="done-notes-label">DONE<img src="https://cdn1.iconfinder.com/data/icons/appicns/513/appicns_Trash_Empty.png" class="note-trash"></img></div>
+<div style="clear:both;"></div>
+<div class="new-notes notes-container" id="0">
+  <% @new_notes.each do |note| %>
+    <div class="one-note" status="<%= note.status %>" id="<%= note.id %>"><%= note.text %></div>
+  <% end %>
+</div>
+<div class="doing-notes notes-container" id="1">
+  <% @doing_notes.each do |note| %>
+    <div class="one-note" status="<%= note.status %>" id="<%= note.id %>"><%= note.text %></div>
+  <% end %>
+</div>
+<div class="done-notes notes-container" id="2">
+  <% @done_notes.each do |note| %>
+    <div class="one-note" status="<%= note.status %>" id="<%= note.id %>"><%= note.text %></div>
+  <% end %>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create new note</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(@note) do |f| %>
+          <%= f.text_field :text, class: "input-text" %>
+          <%= f.submit class: "btn btn-info submit-button" %>
+        <% end %>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $(".notes-container").sortable({
+      items: ".one-note",
+      stop: function() {
+        update_priority($(this));
+      }
+    });
+    $(".notes-container").droppable({
+      drop: function( event, ui ) {
+        var note = ui.draggable;
+        var container = $(this);
+        if(note.attr("status") != container.attr("id")) {
+          add_note_new_container(container, note);
+          update_priority(container);
+        };
+      }
+    });
+    $(".note-trash").droppable({
+      drop: function( event, ui ) {
+        var note = ui.draggable;
+        remove_note(note);
+      }
+    });
+    function add_note_new_container(container, note) {
+      update_note_in_db(note.attr("id"), container.attr("id"));
+      container.prepend("<div class='one-note' status='" + container.attr("id") + "' id='" + note.attr("id") + "'>" + note.html() + "</div>");
+      note.remove();
+    }
+    function update_note_in_db (note_id, status) {
+      ajax_to_server("<%= update_status_notes_path %>", {id: note_id, status: status});
+    }
+    function update_priority(container) {
+      var orderNum = 0;
+      var priority_json = {}
+  container.children().each(function(){
+        orderNum++;
+        $(this).attr("priority", orderNum);
+        priority_json[""+$(this).attr("id")] = orderNum;
+      });
+      ajax_to_server("<%= update_priority_notes_path %>", priority_json);
+    }
+    function remove_note(note) {
+      ajax_to_server("<%= remove_notes_path %>", {id: note.attr("id")});
+      note.hide();
+    }
+    function ajax_to_server(url, data) {
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: data,
+        success: function(data) {
+        },
+        error: function(e) {
+          console.log(e);
+        }
+      });
+    }
+  });
+</script>
