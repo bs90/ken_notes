@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150618042618) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "notes", force: true do |t|
     t.string   "text"
     t.integer  "status",     default: 0
