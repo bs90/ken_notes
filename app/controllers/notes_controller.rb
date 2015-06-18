@@ -7,16 +7,10 @@ class NotesController < ApplicationController
     @note = Note.new
   end
 
-  def edit
-  end
-
   def create
     @note = Note.new(note_params)
     @note.save
     redirect_to notes_path
-  end
-
-  def update
   end
 
   def remove
