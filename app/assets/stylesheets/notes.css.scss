@@ -13,12 +13,18 @@
   min-height: 325px;
   float: left;
   .one-note {
+    cursor: pointer;
     margin: 5px 5px 0px 0px;
     width: 157.5px;
-    height: 100px;
+    height: 105px;
     padding: 5px;
     color: white;
     float: left;
+    font-size: 15px;
+    .note-time {
+      font-size: 12px;
+      text-align: right;
+    }
   }
 }
 
