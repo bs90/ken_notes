@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  http_basic_authenticate_with :name => "ken", :password => "qwesxrfvgyhn"
+  http_basic_authenticate_with :name => "ken", :password => "k123456789"
   def index
     new_notes = Note.where(status: 0).order(:priority).order(created_at: :desc)
     doing_notes = Note.where(status: 1).order(:priority).order(created_at: :desc)
@@ -20,7 +20,8 @@ class NotesController < ApplicationController
   end
 
   def update_note
-    note = Note.find(params[:id]).update_attributes text: params[:text], note_time: note_time
+    note = Note.find(params[:id]).update_attributes text: params[:text],
+      note_time: note_time, place: params[:place]
     redirect_to root_path
   end
 
@@ -37,7 +38,7 @@ class NotesController < ApplicationController
   private
   def note_params
     params["note"]["note_time"] = note_time
-    params.require(:note).permit(:text, :status, :note_time)
+    params.require(:note).permit(:text, :status, :place, :note_time)
   end
 
   def note_time

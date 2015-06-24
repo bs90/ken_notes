@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622024022) do
+ActiveRecord::Schema.define(version: 20150624100232) do
 
   create_table "notes", force: true do |t|
     t.string   "text"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150622024022) do
     t.datetime "updated_at"
     t.integer  "priority",   default: 0
     t.datetime "note_time"
+    t.string   "place"
   end
 
 end
